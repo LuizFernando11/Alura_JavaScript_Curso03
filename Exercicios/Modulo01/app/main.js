@@ -3,12 +3,14 @@ let livros = [];
 const endpointDaApi = "app/livros.json";
 const listaLivros = document.getElementById("livros");
 
+const botoes = document.querySelectorAll('.btn');
+
 BuscarLivrosDaAPI();
 
 async function BuscarLivrosDaAPI() {
     const resultado = await fetch(endpointDaApi);
     livros = await resultado.json();
-    console.table(livros);
+    //console.table(livros);
 
     let LivrosComDescontos = desconto(livros);
 
@@ -32,6 +34,8 @@ function ImprimirLivros(livros){
 
     livros.forEach(livro => {
 
+        listaLivros.innerHTML = "";
+
         listaLivros.innerHTML += `
         <div id="livro">
             <img id="imagem" src="${livro.imagem}" alt="${livro.alt}">
@@ -45,5 +49,14 @@ function ImprimirLivros(livros){
     `
     });
 
+}
+
+botoes.forEach(btn => btn.addEventListener('click', filtrarLivros));
+
+function filtrarLivros() {
+    const elementoBtn = document.getElementById(this.id);
+    const categoria = elementoBtn.value;
+    let livrosFiltrados = livros.filter(livro => livro.categoria == categoria);
+    ImprimirLivros(livrosFiltrados);
 }
 
