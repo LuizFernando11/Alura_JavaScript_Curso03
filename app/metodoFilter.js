@@ -1,8 +1,16 @@
-const btnFiltrarLivrosDeFront = document.getElementById("btnFiltrarLivrosFront");
+//const btnFiltrarLivrosDeFront = document.getElementById("btnFiltrarLivrosFront");
+//btnFiltrarLivrosDeFront.addEventListener("click", filtrarLivros);
 
-btnFiltrarLivrosDeFront.addEventListener("click", filtrarLivrosDeFront);
+const botoes = document.querySelectorAll('.btn');
 
-function filtrarLivrosDeFront(){
-    let livrosFiltrados = livros.filter( livro => categoria == "front-end");
-    console.table(livrosFiltrados);
+botoes.forEach(btn => btn.addEventListener('click', filtrarLivros()));
+
+function filtrarLivros(){
+
+    const elementoBtn = document.getElementById(this.id);
+    const categoria = elementoBtn.value;
+    let livrosFiltrados = livros.filter( livro => categoria == categoria); //categoria do livro == categoria do ultimo const
+    //console.table(livrosFiltrados);
+    exibirLivrosNaTela(livrosFiltrados);
+
 }
